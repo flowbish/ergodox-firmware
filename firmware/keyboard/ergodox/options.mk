@@ -27,7 +27,8 @@ KEYBOARD_LAYOUT := qwerty-kinesis-mod
 KEYBOARD_LAYOUTS := \
 	colemak-symbol-mod \
 	dvorak-kinesis-mod \
-	qwerty-kinesis-mod
+	qwerty-kinesis-mod \
+    custom-qwerty
 # a list of all available layouts for this keyboard
 
 # -----------------------------------------------------------------------------
@@ -63,4 +64,5 @@ CFLAGS += -include $(wildcard $(CURDIR)/options.h)
 $(CURDIR)/layout/qwerty-kinesis-mod.o: $(wildcard $(CURDIR)/layout/common/*)
 $(CURDIR)/layout/dvorak-kinesis-mod.o: $(wildcard $(CURDIR)/layout/common/*)
 $(CURDIR)/layout/colemak-symbol-mod.o: $(wildcard $(CURDIR)/layout/common/*)
+$(CURDIR)/layout/custom-qwerty.o:      $(wildcard $(CURDIR)/layout/common/*)
 
