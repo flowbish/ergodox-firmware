@@ -10,7 +10,6 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include "./controller/mcp23018.h"
 #include "./controller/teensy-2-0.h"
 #include "../../../firmware/keyboard.h"
 
@@ -19,8 +18,6 @@
 uint8_t kb__init(void) {
     if (teensy__init())    // must be first (to initialize twi, and such)
         return 1;
-    if (mcp23018__init())  // must be second
-        return 2;
 
     return 0;  // success
 }
@@ -28,8 +25,6 @@ uint8_t kb__init(void) {
 uint8_t kb__update_matrix(bool matrix[OPT__KB__ROWS][OPT__KB__COLUMNS]) {
     if (teensy__update_matrix(matrix))
         return 1;
-    if (mcp23018__update_matrix(matrix))
-        return 2;
 
     return 0;  // success
 }
