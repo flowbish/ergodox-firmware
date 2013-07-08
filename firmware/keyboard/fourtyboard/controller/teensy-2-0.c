@@ -80,9 +80,12 @@
  */
 
 // --- unused
-#define  UNUSED_0  D, 4  // hard to use with breadboard (on the end)
-#define  UNUSED_1  D, 5  // hard to use with breadboard (on the end)
-#define  UNUSED_2  E, 6  // hard to use with breadboard (internal)
+#define  UNUSED_0  D, 7
+#define  UNUSED_1  D, 5
+#define  UNUSED_2  C, 7
+#define  UNUSED_3  D, 4  // hard to use with breadboard (on the end)
+#define  UNUSED_4  D, 5  // hard to use with breadboard (on the end)
+#define  UNUSED_5  E, 6  // hard to use with breadboard (internal)
 
 // --- rows
 #define  ROW_0  F, 7
@@ -91,13 +94,13 @@
 #define  ROW_3  F, 4
 
 // --- columns
-#define  COLUMN_0  C, 7
-#define  COLUMN_1  D, 7
+#define  COLUMN_0  D, 0
+#define  COLUMN_1  D, 1
 #define  COLUMN_2  D, 2
 #define  COLUMN_3  D, 3
 #define  COLUMN_4  C, 6
-#define  COLUMN_5  F, 1
-#define  COLUMN_6  F, 0
+#define  COLUMN_5  F, 0
+#define  COLUMN_6  F, 1
 #define  COLUMN_7  B, 0
 #define  COLUMN_8  B, 1
 #define  COLUMN_9  B, 2
@@ -126,7 +129,10 @@
     do {                                                    \
         teensypin_write(register, operation, UNUSED_0);     \
         teensypin_write(register, operation, UNUSED_1);     \
-        teensypin_write(register, operation, UNUSED_2); }   \
+        teensypin_write(register, operation, UNUSED_2);     \
+        teensypin_write(register, operation, UNUSED_3);     \
+        teensypin_write(register, operation, UNUSED_4);     \
+        teensypin_write(register, operation, UNUSED_5); }   \
     while(0)
 
 #define  teensypin_write_all_row(register, operation)   \
