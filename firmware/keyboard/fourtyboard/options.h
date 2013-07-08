@@ -33,8 +33,6 @@
 // --- if the diode cathode is towards the square solder pad
 #define  OPT__TEENSY__DRIVE_ROWS     0
 #define  OPT__TEENSY__DRIVE_COLUMNS  1
-#define  OPT__MCP23018__DRIVE_ROWS     0
-#define  OPT__MCP23018__DRIVE_COLUMNS  1
 // ............................................................................
 // --- if the diode cathode is towards the circular solder pad
 // #define  OPT__TEENSY__DRIVE_ROWS     1
@@ -64,25 +62,15 @@
 // firmware/keyboard
 // ----------------------------------------------------------------------------
 
-#define  OPT__KB__ROWS     6
-#define  OPT__KB__COLUMNS  14
-
-
-// ----------------------------------------------------------------------------
-// firmware/lib/...
-// ----------------------------------------------------------------------------
-
-// ----------------------------------------------------------------------------
-// ----------------------------------------------------------------------------
-
-#define  OPT__TWI__FREQUENCY  400000
+#define  OPT__KB__ROWS     4
+#define  OPT__KB__COLUMNS  11
 
 
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 
-#define  OPT__USB__STR_MANUFACTURER  L"DIY"
-#define  OPT__USB__STR_PRODUCT       L"ErgoDox Ergonomic Keyboard"
+#define  OPT__USB__STR_MANUFACTURER  L"Porter Smith"
+#define  OPT__USB__STR_PRODUCT       L"FourtyBoard Keyboard"
 #define  OPT__USB__VENDOR_ID         0x1d50  // Openmoko, Inc.
 #define  OPT__USB__PRODUCT_ID        0x6028  // ErgoDox Ergonomic Keyboard
 

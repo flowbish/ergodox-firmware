@@ -20,7 +20,7 @@
 
 # -----------------------------------------------------------------------------
 
-KEYBOARD_NAME := ergodox
+KEYBOARD_NAME := fourtyboard
 # the name of the keyboard to build a firmware for
 
 TARGET := firmware
