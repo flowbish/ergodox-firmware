@@ -128,14 +128,14 @@ void R(pnbrL) (void) {
 void P(pnbrR) (void) {    
     SAVE_SHIFT_STATE();
     
-    // if either shift is held down send "[" (KEYBOARD__LeftBracket_LeftBrace)
+    // if either shift is held down send "]" (KEYBOARD__RightBracket_RightBrace)
     if (SHIFT_DOWN) {
         usb__kb__set_key( false, KEYBOARD__LeftShift  );
         usb__kb__set_key( false, KEYBOARD__RightShift  );
         usb__kb__send_report();
         KF(press)(KEYBOARD__RightBracket_RightBrace);
     }
-    // otherwise send "(" (KEYBOARD__9_LeftParenthesis)
+    // otherwise send ")" (KEYBOARD__0_RightParenthesis)
     else {
         usb__kb__set_key( true, KEYBOARD__LeftShift  );
         usb__kb__set_key( true, KEYBOARD__RightShift  );
@@ -149,14 +149,14 @@ void P(pnbrR) (void) {
 void R(pnbrR) (void) {
     SAVE_SHIFT_STATE();
     
-    // if either shift is held down send "[" (KEYBOARD__LeftBracket_LeftBrace)
+    // if either shift is held down send "]" (KEYBOARD__RightBracket_RightBrace)
     if (SHIFT_DOWN) {
         usb__kb__set_key( false, KEYBOARD__LeftShift  );
         usb__kb__set_key( false, KEYBOARD__RightShift  );
         usb__kb__send_report();
         KF(release)(KEYBOARD__RightBracket_RightBrace);
     }
-    // otherwise send "(" (KEYBOARD__9_LeftParenthesis)
+    // otherwise send ")" (KEYBOARD__0_RightParenthesis)
     else {
         usb__kb__set_key( true, KEYBOARD__LeftShift  );
         usb__kb__set_key( true, KEYBOARD__RightShift  );
