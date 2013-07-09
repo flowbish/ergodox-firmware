@@ -63,6 +63,109 @@ KEYS__LAYER__NUM_POP(10);
 //KEYS__LAYER__PUSH_POP(2,2)
 #define FN2 lpupo2l2
 
+// saves current shift state to be restored later
+#define SAVE_SHIFT_STATE()                                              \
+        struct {                                                        \
+        bool left_shift  : 1;                                           \
+        bool right_shift : 1;                                           \
+        } state = {                                                     \
+            .left_shift  = usb__kb__read_key( KEYBOARD__LeftShift  ),   \
+            .right_shift = usb__kb__read_key( KEYBOARD__RightShift ),   \
+        };
+        
+// restores shift state saved by SAVE_SHIFT_STATE()
+#define RESTORE_SHIFT_STATE()                                           \
+        usb__kb__set_key( state.left_shift,  KEYBOARD__LeftShift  );    \
+        usb__kb__set_key( state.right_shift, KEYBOARD__RightShift );    \
+        usb__kb__send_report();
+
+#define SHIFT_DOWN (state.left_shift || state.right_shift)
+
+// this defines a key that sends a parenthesis when pressed normally
+// and a bracket when pressed 
+void P(pnbrL) (void) {    
+    SAVE_SHIFT_STATE();
+    
+    // if either shift is held down send "[" (KEYBOARD__LeftBracket_LeftBrace)
+    if (SHIFT_DOWN) {
+        usb__kb__set_key( false, KEYBOARD__LeftShift  );
+        usb__kb__set_key( false, KEYBOARD__RightShift  );
+        usb__kb__send_report();
+        KF(press)(KEYBOARD__LeftBracket_LeftBrace);
+    }
+    // otherwise send "(" (KEYBOARD__9_LeftParenthesis)
+    else {
+        usb__kb__set_key( true, KEYBOARD__LeftShift  );
+        usb__kb__set_key( true, KEYBOARD__RightShift  );
+        usb__kb__send_report();
+        KF(press)(KEYBOARD__9_LeftParenthesis);
+    }
+    
+    RESTORE_SHIFT_STATE();
+}
+
+void R(pnbrL) (void) {
+    SAVE_SHIFT_STATE();
+    
+    // if either shift is held down send "[" (KEYBOARD__LeftBracket_LeftBrace)
+    if (SHIFT_DOWN) {
+        usb__kb__set_key( false, KEYBOARD__LeftShift  );
+        usb__kb__set_key( false, KEYBOARD__RightShift  );
+        usb__kb__send_report();
+        KF(release)(KEYBOARD__LeftBracket_LeftBrace);
+    }
+    // otherwise send "(" (KEYBOARD__9_LeftParenthesis)
+    else {
+        usb__kb__set_key( true, KEYBOARD__LeftShift  );
+        usb__kb__set_key( true, KEYBOARD__RightShift  );
+        usb__kb__send_report();
+        KF(release)(KEYBOARD__9_LeftParenthesis);
+    }
+    
+    RESTORE_SHIFT_STATE();
+}
+
+void P(pnbrR) (void) {    
+    SAVE_SHIFT_STATE();
+    
+    // if either shift is held down send "[" (KEYBOARD__LeftBracket_LeftBrace)
+    if (SHIFT_DOWN) {
+        usb__kb__set_key( false, KEYBOARD__LeftShift  );
+        usb__kb__set_key( false, KEYBOARD__RightShift  );
+        usb__kb__send_report();
+        KF(press)(KEYBOARD__RightBracket_RightBrace);
+    }
+    // otherwise send "(" (KEYBOARD__9_LeftParenthesis)
+    else {
+        usb__kb__set_key( true, KEYBOARD__LeftShift  );
+        usb__kb__set_key( true, KEYBOARD__RightShift  );
+        usb__kb__send_report();
+        KF(press)(KEYBOARD__0_RightParenthesis);
+    }
+    
+    RESTORE_SHIFT_STATE();
+}
+
+void R(pnbrR) (void) {
+    SAVE_SHIFT_STATE();
+    
+    // if either shift is held down send "[" (KEYBOARD__LeftBracket_LeftBrace)
+    if (SHIFT_DOWN) {
+        usb__kb__set_key( false, KEYBOARD__LeftShift  );
+        usb__kb__set_key( false, KEYBOARD__RightShift  );
+        usb__kb__send_report();
+        KF(release)(KEYBOARD__RightBracket_RightBrace);
+    }
+    // otherwise send "(" (KEYBOARD__9_LeftParenthesis)
+    else {
+        usb__kb__set_key( true, KEYBOARD__LeftShift  );
+        usb__kb__set_key( true, KEYBOARD__RightShift  );
+        usb__kb__send_report();
+        KF(release)(KEYBOARD__0_RightParenthesis);
+    }
+    
+    RESTORE_SHIFT_STATE();
+}
 // ----------------------------------------------------------------------------
 // layout
 // ----------------------------------------------------------------------------
@@ -90,8 +193,19 @@ static _layout_t _layout = {
        K,    nop,
 // main keyboard
        1,      2,      3,      4,      5,  equal,      6,      7,      8,      9,      0,
-       a,      s,      d,      f,      g,   dash,  brktL,  brktR, braceL, braceR    ,  quote,
+       a,      s,      d,      f,      g,   dash, braceL, braceR,  pnbrL,  pnbrR,  quote,
        z,      x,      c,      v,      b,   guiL,bkslash, arrowL, arrowD, arrowU, arrowR,
+     FN1,   altL,  ctrlL,     bs, shiftR,          enter,  space,  ctrlR,   altR,     FN2),
+
+// ............................................................................
+   
+   MATRIX_LAYER( //layer 2: FN2 layer
+// macro, unused
+       K,    nop,
+// main keyboard
+       1,      2,      3,      4,      5,  equal,      6,      7,      8,      9,      0,
+       a,      s,      d,      f,      g,   dash, braceL, braceR,  pnbrL,  pnbrR,  quote,
+       z,      x,      c,      v,      b,  btldr,bkslash, arrowL, arrowD, arrowU, arrowR,
      FN1,   altL,  ctrlL,     bs, shiftR,          enter,  space,  ctrlR,   altR,     FN2)
 
 // ............................................................................
