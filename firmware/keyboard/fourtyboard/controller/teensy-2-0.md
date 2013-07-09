@@ -27,16 +27,16 @@
 ### Teensy 2.0 Pin Assignments
 
               power_negative  GND +---.....---+ Vcc  power_positive
-                    column_7  PB0 +           + PF0  row_5
-                    column_8  PB1 +           + PF1  row_4
+                    column_7  PB0 +           + PF0  column_5
+                    column_8  PB1 +           + PF1  column_6
                     column_9  PB2 +           + PF4  row_3
                     column_A  PB3 +  o     o  + PF5  row_2
                 (OC1C) LED_3  PB7 + PE6  AREF + PF6  row_1
-                 (SCL)   I2C  PD0 +           + PF7  row_0
-                 (SDA)   I2C  PD1 +           + PB6  LED_2 (OC1B)
-                    column_B  PD2 +           + PB5  LED_1 (OC1A)
-                    column_C  PD3 +           + PB4  = Vcc
-                    column_D  PC6 +           o PD7
+                    column_0  PD0 +           + PF7  row_0
+                    column_1  PD1 +           + PB6  LED_2 (OC1B)
+                    column_2  PD2 +           + PB5  LED_1 (OC1A)
+                    column_3  PD3 +           + PB4  = Vcc
+                    column_4  PC6 +           o PD7
                               PC7 o-o-o-o-o-o-+ PD6  onboardLED = GND
                               PD5 --/ | | | \-- PD4
                               Vcc ----/ | \---- RST
