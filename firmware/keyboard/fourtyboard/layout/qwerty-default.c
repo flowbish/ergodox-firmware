@@ -14,6 +14,7 @@
 
 
 #include "./common/definitions.h"
+#include "./qwerty-default.h"
 
 
 // ----------------------------------------------------------------------------
@@ -63,109 +64,12 @@ KEYS__LAYER__NUM_POP(10);
 //KEYS__LAYER__PUSH_POP(2,2)
 #define FN2 lpupo2l2
 
-// saves current shift state to be restored later
-#define SAVE_SHIFT_STATE()                                              \
-        struct {                                                        \
-        bool left_shift  : 1;                                           \
-        bool right_shift : 1;                                           \
-        } state = {                                                     \
-            .left_shift  = usb__kb__read_key( KEYBOARD__LeftShift  ),   \
-            .right_shift = usb__kb__read_key( KEYBOARD__RightShift ),   \
-        };
-        
-// restores shift state saved by SAVE_SHIFT_STATE()
-#define RESTORE_SHIFT_STATE()                                           \
-        usb__kb__set_key( state.left_shift,  KEYBOARD__LeftShift  );    \
-        usb__kb__set_key( state.right_shift, KEYBOARD__RightShift );    \
-        usb__kb__send_report();
+KEYS__UNSHIFT_SHIFT(pnbrL,parenL,brktL)
 
-#define SHIFT_DOWN (state.left_shift || state.right_shift)
+KEYS__UNSHIFT_SHIFT(pnbrR,parenR,brktR)
 
-// this defines a key that sends a parenthesis when pressed normally
-// and a bracket when pressed 
-void P(pnbrL) (void) {    
-    SAVE_SHIFT_STATE();
-    
-    // if either shift is held down send "[" (KEYBOARD__LeftBracket_LeftBrace)
-    if (SHIFT_DOWN) {
-        usb__kb__set_key( false, KEYBOARD__LeftShift  );
-        usb__kb__set_key( false, KEYBOARD__RightShift  );
-        usb__kb__send_report();
-        KF(press)(KEYBOARD__LeftBracket_LeftBrace);
-    }
-    // otherwise send "(" (KEYBOARD__9_LeftParenthesis)
-    else {
-        usb__kb__set_key( true, KEYBOARD__LeftShift  );
-        usb__kb__set_key( true, KEYBOARD__RightShift  );
-        usb__kb__send_report();
-        KF(press)(KEYBOARD__9_LeftParenthesis);
-    }
-    
-    RESTORE_SHIFT_STATE();
-}
+KEYS__UNSHIFT_SHIFT(test1,FN1,FN2)
 
-void R(pnbrL) (void) {
-    SAVE_SHIFT_STATE();
-    
-    // if either shift is held down send "[" (KEYBOARD__LeftBracket_LeftBrace)
-    if (SHIFT_DOWN) {
-        usb__kb__set_key( false, KEYBOARD__LeftShift  );
-        usb__kb__set_key( false, KEYBOARD__RightShift  );
-        usb__kb__send_report();
-        KF(release)(KEYBOARD__LeftBracket_LeftBrace);
-    }
-    // otherwise send "(" (KEYBOARD__9_LeftParenthesis)
-    else {
-        usb__kb__set_key( true, KEYBOARD__LeftShift  );
-        usb__kb__set_key( true, KEYBOARD__RightShift  );
-        usb__kb__send_report();
-        KF(release)(KEYBOARD__9_LeftParenthesis);
-    }
-    
-    RESTORE_SHIFT_STATE();
-}
-
-void P(pnbrR) (void) {    
-    SAVE_SHIFT_STATE();
-    
-    // if either shift is held down send "]" (KEYBOARD__RightBracket_RightBrace)
-    if (SHIFT_DOWN) {
-        usb__kb__set_key( false, KEYBOARD__LeftShift  );
-        usb__kb__set_key( false, KEYBOARD__RightShift  );
-        usb__kb__send_report();
-        KF(press)(KEYBOARD__RightBracket_RightBrace);
-    }
-    // otherwise send ")" (KEYBOARD__0_RightParenthesis)
-    else {
-        usb__kb__set_key( true, KEYBOARD__LeftShift  );
-        usb__kb__set_key( true, KEYBOARD__RightShift  );
-        usb__kb__send_report();
-        KF(press)(KEYBOARD__0_RightParenthesis);
-    }
-    
-    RESTORE_SHIFT_STATE();
-}
-
-void R(pnbrR) (void) {
-    SAVE_SHIFT_STATE();
-    
-    // if either shift is held down send "]" (KEYBOARD__RightBracket_RightBrace)
-    if (SHIFT_DOWN) {
-        usb__kb__set_key( false, KEYBOARD__LeftShift  );
-        usb__kb__set_key( false, KEYBOARD__RightShift  );
-        usb__kb__send_report();
-        KF(release)(KEYBOARD__RightBracket_RightBrace);
-    }
-    // otherwise send ")" (KEYBOARD__0_RightParenthesis)
-    else {
-        usb__kb__set_key( true, KEYBOARD__LeftShift  );
-        usb__kb__set_key( true, KEYBOARD__RightShift  );
-        usb__kb__send_report();
-        KF(release)(KEYBOARD__0_RightParenthesis);
-    }
-    
-    RESTORE_SHIFT_STATE();
-}
 // ----------------------------------------------------------------------------
 // layout
 // ----------------------------------------------------------------------------
